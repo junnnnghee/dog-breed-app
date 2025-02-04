@@ -6,7 +6,8 @@ def main():
     st.subheader('강아지에 대한 정보를 제공하는 앱입니다.')
     
     menu = ['홈', '품종 정보']
-    st.sidebar(menu)
+    with st.sidebar:
+        
 
 
 
