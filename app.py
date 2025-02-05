@@ -9,6 +9,7 @@ def main():
     df = pd.read_csv('dog/Car_Purchasing_Data.csv')
     print(df)
     st.dataframe(df)
+    
 
 
 
