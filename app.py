@@ -1,32 +1,22 @@
 import streamlit as st
 import pandas as pd
 from PIL import Image
+from ui.breed import run_breed
+from ui.home import run_home
 
 def main():
-    st.title('🐶강아지 정보 앱🐶💓')
-    st.subheader('강아지에 대한 정보를 제공하는 앱입니다.')
-    st.markdown("귀여운 강아지들을 만나보세요! 💕")
+    st.title("반려견 정보 대시보드 🐶")
 
-    main_image = Image.open('./image/dogkind.webp')
-    st.image(main_image, width=500)
+    menu = ['Home', '사용자 입력 기반 품종 추천', '가격, 건강, 수명 예측']
+    choice = st.sidebar.selectbox('메뉴', menu)
+
+    if choice == menu[0]:
+        run_home()
+    elif choice == menu[1]:
+        run_breed()
     
-<<<<<<< HEAD
-    df = pd.read_csv('dog/Car_Purchasing_Data.csv')
-    print(df)
-    st.dataframe(df)
+
     
-=======
-    
-    menu = ['홈', '품종 정보']
-    st.sidebar.title('메뉴')
-    st.sidebar.text('메뉴를 선택하세요.')
-    st.sidebar.button('홈')
-    st.sidebar.button('품종 정보')
-
-
-        
-
->>>>>>> 2508f305fe9fc43edbc3f6741e66ffe0a6440c00
 
 
 
