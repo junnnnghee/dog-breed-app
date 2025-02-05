@@ -1,6 +1,8 @@
 from sklearn.calibration import LabelEncoder
 import streamlit as st
 import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
 
 def load_data():
@@ -47,4 +49,22 @@ def run_breed():
 
     어린이적합성_list = ['높음', '중간', '낮음']
     st.radio('어린이 적합성을 선택하세요.', 어린이적합성_list)
-    
+
+def train_knn_model(df):
+        
+    y = df['품종']
+    X = df.loc[ : , ['크기', '지능', '어린이 적합성'] ]
+
+    breed_encoder = LabelEncoder()
+    y = sorted(breed_encoder.fit_transform(y))
+
+    intelligence_encoder = LabelEncoder()
+    X['지능'] = intelligence_encoder.fit_transform(X['지능'])
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    knn = KNeighborsClassifier(n_neighbors=5)
+    knn.fit(X_train, y_train)
+
+    st.da(knn)
+
