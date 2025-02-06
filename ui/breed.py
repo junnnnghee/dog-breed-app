@@ -4,10 +4,13 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
+import time
 
 
 def load_data():
     df = pd.read_csv('dog/dogs-ranking-dataset.csv')
+
+    
 
     # 크기를 수동으로 매핑 (문자열 → 숫자 변환)
     size_levels = {
@@ -30,10 +33,16 @@ def load_data():
     }
     df["지능"] = df["지능"].map(intelligence_levels)
 
+    df2 = pd.read_csv('dog/dog_breeds.csv')
 
+    df2_data = df2[ ['breed', 'url', 'img'] ]
+    df2_data.rename(columns={'breed': '품종'}, inplace=True)
+
+    df = df[df['품종'].isin(df2_data['품종'])].merge(df2_data,left_on='품종', right_on='품종', how='inner')
         
     return df
 
+    
 df = load_data()
 
 
@@ -64,47 +73,53 @@ kids_mapping = {
     
 
 def run_breed():
-    st.subheader('품종을 추천해드립니다.')
+    st.subheader('강아지 품종을 추천해드립니다.')
+    st.write('###### 💡 인기순위 Top5 정보가 궁금하다면? 아래버튼 클릭 ❗')
 
+    
+    if 'show_top5' not in st.session_state:
+        st.session_state.show_top5 = False
 
-    st.text('아래는 개 품종 순위 Top5 정보입니다.')
-    st.dataframe(df.head())       
+    
+    if st.button('인기순위 Top5') :
+        st.session_state.show_top5 = not st.session_state.show_top5
+        
+    if st.session_state.show_top5:
+        st.text('🔻 아래는 개 품종 인기순위 Top5 정보입니다.')
+        st.dataframe(df.sort_values('인기순위', ascending=True).head())
+           
     
 
     st.text('원하는 개의 사이즈, 지능, 아이들과의 적합성 점수를 선택하세요.')
     
-    size_labels = [size_mapping[i] for i in range(len(size_mapping))]
-    size_option = st.selectbox('사이즈', size_labels)
-    size_encoded = list(size_mapping.keys())[size_labels.index(size_option)]
+    # 초기값을 '선택하세요'로 설정
+    size_option = st.selectbox('사이즈', ["선택하세요"] + list(size_mapping.values()))
+    intelligence_option = st.selectbox('지능 수준', ["선택하세요"] + list(intelligence_mapping.values()))
+    kids_option = st.selectbox('어린이 적합성', ["선택하세요"] + list(kids_mapping.values()))
 
-    st.text('지능')
-    intelligence_labels = [intelligence_mapping[i] 
-     for i in range(len(intelligence_mapping))]
-    intelligence_option = st.selectbox('지능 수준', intelligence_labels)
-    intelligence_encoded = list(intelligence_mapping.keys())[intelligence_labels.index(intelligence_option)]
+    # 사용자가 3개 다 선택하지 않으면 예측하지 않음
+    if size_option != "선택하세요" and intelligence_option != "선택하세요" and kids_option != "선택하세요":
+        size_encoded = list(size_mapping.keys())[list(size_mapping.values()).index(size_option)]
+        intelligence_encoded = list(intelligence_mapping.keys())[list(intelligence_mapping.values()).index(intelligence_option)]
+        kids_encoded = list(kids_mapping.keys())[list(kids_mapping.values()).index(kids_option)]
+        
+        user_input = [[size_encoded, intelligence_encoded, kids_encoded]]
+        
+        knn_model = train_knn_model(df)
+        knn_prediction = knn_model.predict(user_input)[0]  # 단 하나의 예측 결과만 가져오기
+        
+        with st.spinner('loding...'):
+            time.sleep(2)
 
-    
-    kisd_option = st.selectbox('어린이 적합성을 선택하세요.', list(kids_mapping.values()))
-    kids_encoded = list(kids_mapping.keys())[list(kids_mapping.values()).index(kisd_option)]
+        st.write("### 📌 선택하신 조건으로 추천해드리는 품종입니다 :")
+        st.write(f"- {knn_prediction}")  # 예측된 품종 하나만 출력
+        
+        breed_info = df.loc[df['품종'] == knn_prediction]
+        breed_img = breed_info['img'].values[0]
+        st.image(breed_img)
+    else:
+        st.warning("❗ 모든 옵션을 선택해야 추천이 나옵니다!")  # 선택이 안 된 경우 경고 메시지 출력
 
-    user_input = [ [size_encoded, intelligence_encoded, kids_encoded] ]
-
-    knn_model = train_knn_model(df)
-    dt_model = train_decision_tree_model(df)
-
-   
-
-    knn_probabilities = knn_model.predict_proba(user_input)[0]  # 품종별 확률 가져오기
-    top_2_indices = knn_probabilities.argsort()[-2:][::-1]  # 확률이 높은 3개 품종 인덱스
-    top_2_breeds = knn_model.classes_[top_2_indices]  # 인덱스에 해당하는 품종 가져오기
-
-    st.write(f'사이즈 : {size_option}')
-    st.write(f'지능 : {intelligence_option}')
-    st.write(f'어린이 적합성 : {kisd_option}')
-
-    st.write("### 📌 KNN 추천 품종:")
-    for breed in top_2_breeds:
-        st.write(f"- {breed}")
     
     
     
