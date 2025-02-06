@@ -27,7 +27,7 @@ df, labal_encoders = load_data()
 
 
 def main():
-    st.dataframe(df)
+    
     st.title("반려견 정보 대시보드 🐶")
 
     menu = ['Home', '사용자 입력 기반 품종 추천', '가격, 건강, 수명 예측']
