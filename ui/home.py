@@ -1,10 +1,40 @@
 import streamlit as st
 
+from ui.breed import run_breed
+
+
 def run_home():
+    
+    col1, col2 = st.columns([3, 2])  # 비율 조절 (텍스트 3, 이미지 2)
+    with col1:
+        st.write("#### 🔍 반려견을 찾고 계신가요?")  
+        st.write("""
+            이 앱에서는 **당신에게 딱 맞는 강아지 품종을 추천**하고,  
+            **강아지의 가격, 건강, 수명 예측 기능**을 제공합니다!  
+            
+            원하는 정보를 쉽게 찾아보세요! 🐾
+        """)
+    with col2:
+        st.image("image/dog_img.png", width=300)
 
-    st.title("🐶반려견 정보 대시보드 🐶")
+    st.divider()  # 탭과 콘텐츠 구분선
 
-    st.write("이 앱은 다양한 개 품종의 정보를 제공합니다!")
-    st.write("아래 기능들이 있습니다.")
-    st.success("사용자 입력 기반 품종 추천")
-    st.success("가격, 건강, 수명 예측")
+    st.write("## 📌 주요 기능")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("🐕 강아지 추천 기능")
+        st.write("원하는 강아지의 특성을 선택하면, 가장 적합한 품종을 추천해 드립니다.")
+        
+
+    with col2:
+        st.subheader("📊 가격 · 건강 · 수명 예측")
+        st.write("강아지의 예상 가격, 건강 상태 및 기대 수명을 예측해드립니다.")
+        
+
+    st.divider()  # 탭과 콘텐츠 구분선
+
+    
+    # 안내 메시지
+    st.info("📌 상단의 메뉴 탭을 클릭하세요!")

@@ -168,7 +168,19 @@ kids_mapping = {
 def run_breed():
     
     st.subheader('강아지 품종을 추천해드립니다.')
-    st.write('###### 💡 인기순위 Top5 정보가 궁금하다면? 아래버튼 클릭 ❗')
+    st.write("""
+            <p style="color:#4B4B4B; font-size:17px; font-weight:400;">
+    원하시는 개의 <b style="color:#FF8C00;">사이즈/지능/아이들과 적합성이 높은지 낮은지</b>를 선택하면
+    </p>
+    <p style="color:#4B4B4B; font-size:17px; font-weight:400;">
+    그에 맞는 비슷한 품종을 찾아서 추천해드릴게요!
+    </p>
+    """, unsafe_allow_html=True)
+    st.write('- f')
+    
+    st.divider()
+    st.write('###### 💡 인기순위 Top5가 궁금하다면? 아래버튼 클릭 ❗')
+
 
     
     if 'show_top5' not in st.session_state:
@@ -179,10 +191,13 @@ def run_breed():
         st.session_state.show_top5 = not st.session_state.show_top5
         
     if st.session_state.show_top5:
-        st.text('🔻 아래는 개 품종 인기순위 Top5 정보입니다.')
-        st.dataframe(df.sort_values('인기순위', ascending=True).head())
+        st.text('🔻 아래는 개 품종 인기순위 Top5 입니다.')
+        dog_top5 = df.loc[:,['품종', '점수', '인기순위', '어린이를 위한 점수', '지능%']].sort_values('인기순위', ascending=True).reset_index(drop=True).head()
+        dog_top5.index = range(1, len(dog_top5)+1)
+        st.dataframe(dog_top5)
            
     
+    st.divider()
 
     st.text('원하는 개의 사이즈, 지능, 아이들과의 적합성 점수를 선택하세요.')
     
@@ -237,9 +252,9 @@ def run_breed():
                 st.write(f"✅ **지능:** {breed_intelligence}")
                 st.write(f"✅ **어린이 적합성:** {breed_kids_friendly}")
                 st.image(breed_img, width=300)
-                
                 st.write('##### 📌 자세한 정보를 알고 싶다면? 아래 링크를 클릭하세요❗')
                 st.page_link(breed_url, label='웹사이트 방문하기', icon="🌍")
+                st.divider()
 
 
     else:
