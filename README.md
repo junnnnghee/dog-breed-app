@@ -53,7 +53,7 @@ streamlit run app.py
 
 - 네이버 금융 API를 사용하여 USD → KRW 환율을 실시간으로 반영합니다.
 
-- 최신 환율 확인: 네이버 금융 환율 페이지
+- 최신 환율 확인: 네이버 금융 환율 페이지 https://finance.naver.com/
 
 ---
 ## 🛠 추가 개선 사항
