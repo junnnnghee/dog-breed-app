@@ -63,16 +63,18 @@ def main():
 
       
 
-    tab1, tab2, tab3 = st.tabs(["🏠 홈", "🐕 강아지 추천", "📈 데이터 분석"])
+    tab1, tab2, tab3, tab4 = st.tabs(["🏠 홈", "🐕 강아지 추천", "📈 데이터 분석", "🔍품종 찾기"])
 
     with tab1:
-        st.subheader("🏠 홈")
+        st.title("🐾강아지 정보 & AI 추천 대시보드")
         run_home()
     with tab2:
         st.subheader("🐕 강아지 추천 기능")
         run_breed()
     with tab3:
         st.subheader("📈 데이터 분석")
+    with tab4:
+        st.subheader("🔍 품종 찾기")
 
     
     

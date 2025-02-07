@@ -176,6 +176,7 @@ def run_breed():
     그에 맞는 비슷한 품종을 찾아서 추천해드릴게요!
     </p>
     """, unsafe_allow_html=True)
+    st.write('')
     
     
     st.divider()
