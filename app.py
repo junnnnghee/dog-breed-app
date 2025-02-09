@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from PIL import Image
+from dev_progress import run_dev_progress
 from ui.breed import run_breed
 from ui.home import run_home
 from ui.breed import train_knn_model
@@ -63,18 +64,23 @@ def main():
 
       
 
-    tab1, tab2, tab3, tab4 = st.tabs(["🏠 홈", "🐕 강아지 추천", "📈 데이터 분석", "🔍품종 찾기"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 홈", "🚀 개발 과정","🐕 강아지 추천", "📈 데이터 분석", "🔍품종 찾기"])
 
     with tab1:
         st.title("🐾강아지 정보 & AI 추천 대시보드")
         run_home()
     with tab2:
+        st.subheader("🚀 개발 과정")
+        run_dev_progress()
+    with tab3:
         st.subheader("🐕 강아지 추천 기능")
         run_breed()
-    with tab3:
-        st.subheader("📈 데이터 분석")
     with tab4:
+        st.subheader("📈 데이터 분석")
+    with tab5:
         st.subheader("🔍 품종 찾기")
+
+
 
     
     
