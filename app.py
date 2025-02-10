@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
 from PIL import Image
-from dev_progress import run_dev_progress
+from ui.dev_progress import run_dev_progress
 from ui.breed import run_breed
+from ui.dog_predict import run_prediction
 from ui.home import run_home
 from ui.breed import train_knn_model
 from sklearn.preprocessing import LabelEncoder
@@ -77,6 +78,7 @@ def main():
         run_breed()
     with tab4:
         st.subheader("📈 데이터 분석")
+        run_prediction()
     with tab5:
         st.subheader("🔍 품종 찾기")
 
