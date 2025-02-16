@@ -9,6 +9,7 @@ from ui.breed import train_knn_model
 from sklearn.preprocessing import LabelEncoder
 from ui.breed import load_data
 
+
 st.set_page_config(page_title="Dog Info App", layout="wide")
 st.markdown(
     """
