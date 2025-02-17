@@ -1,13 +1,12 @@
 import streamlit as st
-import pandas as pd
-from PIL import Image
 from ui.dev_progress import run_dev_progress
 from ui.breed import run_breed
+from ui.dog_find import run_bog_find
 from ui.dog_predict import run_prediction
 from ui.home import run_home
-from ui.breed import train_knn_model
-from sklearn.preprocessing import LabelEncoder
-from ui.breed import load_data
+
+
+
 
 
 st.set_page_config(page_title="Dog Info App", layout="wide")
@@ -44,7 +43,7 @@ st.markdown(
         }
         /* 컨텐츠 정렬 */
         .block-container {
-            max-width: 900px; /* 중앙 정렬을 위한 최대 너비 */
+            max-width: 1000px; /* 중앙 정렬을 위한 최대 너비 */
             margin: auto;
             padding: 2rem;
             border-radius: 10px;
@@ -82,6 +81,7 @@ def main():
         run_prediction()
     with tab5:
         st.subheader("🔍 품종 찾기")
+        run_bog_find()
 
 
 

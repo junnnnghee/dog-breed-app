@@ -1,10 +1,7 @@
-
-from sklearn.linear_model import LinearRegression
 import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
 import time
 from sklearn.preprocessing import LabelEncoder
 
@@ -36,43 +33,58 @@ size_mapping = {
 def run_breed():
     
     st.subheader('강아지 품종을 추천해드립니다.')
-    st.write("""
-            <p style="color:#4B4B4B; font-size:17px; font-weight:400;">
-    원하시는 개의 <b style="color:#FF8C00;">사이즈/지능/아이들과 적합성이 높은지 낮은지</b>를 선택하면
-    </p>
-    <p style="color:#4B4B4B; font-size:17px; font-weight:400;">
-    그에 맞는 비슷한 품종을 찾아서 추천해드릴게요!
-    </p>
-    """, unsafe_allow_html=True)
-    st.divider()
-    st.write("""
-        추천 품종 기능은 **KNN (K-Nearest Neighbors)** 알고리즘을 기반으로 구현되었습니다. 이 모델은 사용자가 입력한 **개의 크기**, **지능**, **아이들과의 적합성 점수**를 바탕으로 가장 적합한 품종을 추천합니다. 
-
-        KNN 모델은 **주변의 유사한 품종**을 찾아, 사용자가 원하는 특성에 맞는 품종을 추천하는 방식입니다. 이 방법은 **직관적이고 효율적인 추천 시스템**으로, 다양한 특성에 맞는 품종을 빠르게 찾아줍니다.
-
-        이 앱은 **데이터 기반**으로 작동하며, 사용자에게 최적의 반려견 품종을 찾는 데 도움을 줍니다.
-        
-        
-        """)
-
     
     
-    
+    if 'info' not in st.session_state:
+        st.session_state.info = False
+
+    if st.button('🔖 예측 결과 확인 과정', key='keys'):
+        st.session_state.info = not st.session_state.info
+
+    if st.session_state.info:
+
+        st.warning("""
+            🔖 예측 결과 확인 과정
+
+            KNN모델로 학습 시켜 제가 직접 옵션을 하나하나 선택해 선택한 옵션대로 추천이 잘되는지 확인작업을 거쳤습니다.
+                
+            예 : 사이즈:중형, 지능:4, 진화도:5 를 선택했을 때
+                
+            기존 데이터에 중형, 지능4, 진화도5인 강아지가 하나뿐이거나, 그에 맞는 강아지가 없다면
+                
+            선택한 옵션과 유사한 **(중형, 지능5, 친화도5) / (중형, 지능6, 친화도6)** 인 강아지가 추천이 됩니다.
+                
+            """)
+    st.write("##### 📌 추천받은 품종 이외에 강아지가 궁금하시다면 **[🔍 품종 찾기]** 탭을 선택하세요!")
            
     
     st.divider()
-    
+    st.write("""
+            <p style="color:#4B4B4B; font-size:17px; font-weight:400;">
+    항목은 3가지로 <b style="color:#FF8C00;">기본 성향, 라이프스타일, 반려견 관리</b>가 있습니다.
+    </p>
+    <p style="color:#4B4B4B; font-size:17px; font-weight:400;">
+    항목별로 원하는 옵션을 선택해 강아지 추천을 받아보세요!
+    </p>
+    """, unsafe_allow_html=True)
+    st.info("""
+        - **버튼**을 클릭하면 옵션 선택이 나옵니다❗    
+        - 옵션을 선택하면 그에 비슷한 품종을 추천해 그 강아지의 **간단한 특성, 이미지와, 정보가 들어있는 링크**도 제공합니다. 
+        - 추천 품종의 자세한 정보들을 알고싶다면 **링크**를 눌러보세요!    
+
+        """)
+    st.divider()
     st.write('###### 1️⃣ 기본 성향 관련')
+    st.write('사이즈, 지능, 친화도 옵션이 있습니다.')
 
     if 'category' not in st.session_state:
         st.session_state.category = False
 
-    if st.button('추천 받기', key='first_bt'):
+    if st.button('클릭', key='first_bt'):
         st.session_state.category = not st.session_state.category
 
     if st.session_state.category:
 
-        st.text('원하는 개의 사이즈, 지능, 아이들과의 적합성 점수를 선택하세요.')
         
         # 초기값을 '선택하세요'로 설정
         size_option = st.selectbox('사이즈', ["선택하세요"] + list(size_mapping.keys()))
@@ -100,7 +112,7 @@ def run_breed():
                 time.sleep(2)
 
             
-            st.divider()
+            
             
 
             st.write("### 📌 선택하신 조건으로 추천해드리는 품종입니다 :")
@@ -142,14 +154,15 @@ def run_breed():
         else:
             st.warning("❗ 모든 옵션을 선택해야 추천이 나옵니다!")  # 선택이 안 된 경우 경고 메시지 출력
 
-    st.divider()
+    
 
     st.write('###### 2️⃣ 라이프스타일 관련 ')
+    st.write('운동시간, 어린이 친화적 여부, 훈련 난이도 옵션이 있습니다.')
 
     if 'category2' not in st.session_state:
         st.session_state.category2 = False
 
-    if st.button('추천 받기',key='second_bt'):
+    if st.button('클릭',key='second_bt'):
         st.session_state.category2 = not st.session_state.category2
 
     if st.session_state.category2:
@@ -180,9 +193,6 @@ def run_breed():
             
             with st.spinner('loding...'):
                 time.sleep(2)
-
-            
-            st.divider()
             
 
             st.write("### 📌 선택하신 조건으로 추천해드리는 품종입니다 :")
@@ -221,14 +231,15 @@ def run_breed():
         else:
             st.warning("❗ 모든 옵션을 선택해야 추천이 나옵니다!")  # 선택이 안 된 경우 경고 메시지 출력
     
-    st.divider()
+    
     
     st.write('###### 3️⃣ 반려견 관리 관련 ')
+    st.write('손질 필요도, 털빠짐 정도, 건강 문제 위험 옵션이 있습니다.')
 
     if 'category3' not in st.session_state:
         st.session_state.category3 = False
 
-    if st.button('추천 받기',key='third_bt'):
+    if st.button('클릭',key='third_bt'):
         st.session_state.category3 = not st.session_state.category3
 
     if st.session_state.category3:
