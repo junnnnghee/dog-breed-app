@@ -75,12 +75,22 @@ def run_breed():
         """)
     st.divider()
     st.write('###### 1️⃣ 기본 성향 관련')
-    st.write('사이즈, 지능, 친화도 옵션이 있습니다.')
+    st.write("""
+             🔹 강아지의 성향은 반려인의 생활 방식과 맞아야 합니다.
+
+            ✅ 크기: 소형, 중형, 대형으로 구분되며, 공간과 생활 환경에 직접적인 영향을 미칩니다.
+             
+            ✅ 친화도: 강아지가 사람을 좋아하고 사회성이 높은 정도를 의미합니다.
+             
+            ✅ 지능: 훈련과 학습 능력을 나타내며, 처음 강아지를 키우는 분들에게 중요한 요소입니다.
+
+
+             """)
 
     if 'category' not in st.session_state:
         st.session_state.category = False
 
-    if st.button('클릭', key='first_bt'):
+    if st.button('클릭하세요', key='first_bt'):
         st.session_state.category = not st.session_state.category
 
     if st.session_state.category:
@@ -154,15 +164,27 @@ def run_breed():
         else:
             st.warning("❗ 모든 옵션을 선택해야 추천이 나옵니다!")  # 선택이 안 된 경우 경고 메시지 출력
 
+    st.divider()
     
 
     st.write('###### 2️⃣ 라이프스타일 관련 ')
-    st.write('운동시간, 어린이 친화적 여부, 훈련 난이도 옵션이 있습니다.')
+    st.write("""
+            🔹 반려인의 생활 패턴에 따라 적절한 강아지를 선택해야 합니다.
+             
+            ✅ 운동 필요량 (시간/일): 강아지가 필요로 하는 활동량을 의미하며, 주인이 얼마나 산책할 수 있는지 고려해야 합니다.
+             
+            ✅ 어린이 친화적 여부: 가정 내 어린이가 있을 경우, 친화적인 품종을 선택하는 것이 중요합니다.
+             
+            ✅ 훈련 난이도 (1-10): 강아지를 훈련시키기 쉬운 정도를 나타냅니다.
+
+            - 숫자가 낮을수록 훈련이 쉽고, 숫자가 높을수록 독립적이거나 고집이 강한 편입니다.
+            - 처음 강아지를 키우는 분들은 훈련이 쉬운 품종을 선택하는 것이 좋습니다.
+             """)
 
     if 'category2' not in st.session_state:
         st.session_state.category2 = False
 
-    if st.button('클릭',key='second_bt'):
+    if st.button('클릭하세요',key='second_bt'):
         st.session_state.category2 = not st.session_state.category2
 
     if st.session_state.category2:
@@ -231,15 +253,23 @@ def run_breed():
         else:
             st.warning("❗ 모든 옵션을 선택해야 추천이 나옵니다!")  # 선택이 안 된 경우 경고 메시지 출력
     
-    
+    st.divider()
     
     st.write('###### 3️⃣ 반려견 관리 관련 ')
-    st.write('손질 필요도, 털빠짐 정도, 건강 문제 위험 옵션이 있습니다.')
+    st.write("""
+            🔹 강아지를 키울 때 필요한 관리 요소를 고려할 수 있습니다.
+             
+            ✅  손질 필요도: 털 관리를 얼마나 자주 해야 하는지(미용, 브러싱 등)
+             
+            ✅  털 빠짐 정도: 털 알러지가 있거나 깔끔한 환경을 원할 경우 고려해야 합니다.
+             
+            ✅  건강 문제 위험: 특정 품종이 선천적으로 가지는 건강 문제가 있는지 확인할 수 있습니다.
+             """)
 
     if 'category3' not in st.session_state:
         st.session_state.category3 = False
 
-    if st.button('클릭',key='third_bt'):
+    if st.button('클릭하세요',key='third_bt'):
         st.session_state.category3 = not st.session_state.category3
 
     if st.session_state.category3:
@@ -301,7 +331,6 @@ def run_breed():
                     st.image(breed_img, width=300)
                     st.write('##### 📌 자세한 정보를 알고 싶다면? 아래 링크를 클릭하세요❗')
                     st.page_link(breed_url, label='웹사이트 방문하기', icon="🌍")
-                    similar_breeds = knn_model3.classes_[sorted_indices[:5]]  # 상위 5개 추천
 
                     st.divider()
 
