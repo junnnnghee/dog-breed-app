@@ -187,9 +187,9 @@ streamlit run app.py
 데이터셋(캐글)
                 
 https://www.kaggle.com/
-> (https://www.kaggle.com/datasets/edoardoba/dog-breeds)
+> https://www.kaggle.com/datasets/edoardoba/dog-breeds
             
-> (https://www.kaggle.com/datasets/prajwaldongre/top-dog-breeds-around-the-world)
+> https://www.kaggle.com/datasets/prajwaldongre/top-dog-breeds-around-the-world
             
 직접 추가한 품종 링크, 이미지의 출처
             
