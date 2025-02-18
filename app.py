@@ -10,6 +10,7 @@ from ui.home import run_home
 
 
 st.set_page_config(page_title="Dog Info App", layout="wide")
+    
 st.markdown(
     """
     <style>
@@ -61,9 +62,7 @@ st.markdown(
 )
 
 def main():
-    
-
-      
+          
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 홈", "🚀 개발 과정","🐕 강아지 추천", "📈 데이터 분석", "🔍품종 찾기"])
 

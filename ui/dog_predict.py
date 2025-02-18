@@ -2,14 +2,30 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 import seaborn as sns
-import koreanize_matplotlib
 
 
-plt.rc("font", family="Malgun Gothic")
-plt.rcParams["axes.unicode_minus"] = False
+
+import os
+import matplotlib.font_manager as fm
+
+@st.cache_data
+def fontRegistered():
+    font_dirs = [os.getcwd() + '/custom_fonts']
+    font_files = fm.findSystemFonts(fontpaths=font_dirs)
+    for font_file in font_files:
+        fm.fontManager.addfont(font_file)
+    fm._load_fontmanager(try_read_cache=False)
+
+
+
+
 
 
 def run_prediction():
+
+    fontRegistered()
+    plt.rc('font', family='NanumSquareNeo-bRg')
+
     df = pd.read_csv('dog/dog_breeds_data.csv')
 
     st.write(""" 
