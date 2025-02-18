@@ -2,7 +2,7 @@
 
 **Dog breed App** 은 강아지 품종 추천 기능과 데이터 분석 차트를 제공하는 Streamlit 기반 웹 애플리케이션입니다.
 
-### 📌 [🔗 바로가기: Dog Breed App](https://dog-breed-app-ed38rlbstnt9aacybq4ky6.streamlit.app/)  
+### 📌 [🔗 바로가기: Dog Breed App](https://dog-breed-app-uutmb4jpkftojqtu3dbkfm.streamlit.app/)  
 
 ## 📢 소개  
 이 프로젝트는 Streamlit을 활용하여 **강아지 품종 추천 및 데이터 분석**을 제공하는 웹 애플리케이션입니다.  
