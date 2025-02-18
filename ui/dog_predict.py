@@ -1,13 +1,12 @@
-from matplotlib import pyplot as plt
-import matplotlib
+import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 import seaborn as sns
 import koreanize_matplotlib
 
 
-matplotlib.rc("font", family="Malgun Gothic")
-matplotlib.rcParams["axes.unicode_minus"] = False
+plt.rc("font", family="Malgun Gothic")
+plt.rcParams["axes.unicode_minus"] = False
 
 
 def run_prediction():
