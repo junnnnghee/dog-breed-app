@@ -24,7 +24,7 @@ def fontRegistered():
 def run_prediction():
 
     fontRegistered()
-    plt.rc('font', family='NanumSquareNeo-bRg')
+    plt.rc('font', family='NanumGothic')
 
     df = pd.read_csv('dog/dog_breeds_data.csv')
 
