@@ -3,6 +3,7 @@ import matplotlib
 import streamlit as st
 import pandas as pd
 import seaborn as sns
+import koreanize_matplotlib
 
 
 matplotlib.rc("font", family="Malgun Gothic")
