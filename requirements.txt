@@ -4,4 +4,4 @@ matplotlib
 seaborn
 scikit-learn
 numpy
-koreanize-matplotlib
+pip install koreanize-matplotlib
