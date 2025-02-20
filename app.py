@@ -9,7 +9,7 @@ from ui.home import run_home
 
 
 
-st.set_page_config(page_title="Dog Info App", layout="wide")
+st.set_page_config(page_title="Dog Breed App", layout="wide")
     
 st.markdown(
     """
